@@ -1,8 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -20,6 +18,8 @@ public class SimulationTest {
                 new Vector2d(0, 0)
         );
 
+        WorldMap<Vector2d, Animal> worldMap = new RectangularMap(100, 100);
+
         String[] directionsStrings = {"FORWARD", "BACKWARD", "RIGHT", "LEFT"};
 
         List<Integer> directionsInts = List.of(
@@ -32,7 +32,7 @@ public class SimulationTest {
 
 
         // simulation1 is for 4 animals
-        Simulation simulation1 = new Simulation(directions, positions);
+        Simulation simulation1 = new Simulation(directions, positions, worldMap);
         simulation1.run();
 
         List<Animal> animals1 = simulation1.getAnimals();
@@ -44,7 +44,7 @@ public class SimulationTest {
 
 
         // simulation2 is for 1 animal
-        Simulation simulation2 = new Simulation(directions, List.of(new Vector2d(2, 2)));
+        Simulation simulation2 = new Simulation(directions, List.of(new Vector2d(2, 2)), worldMap);
         simulation2.run();
 
         List<Animal> animals2 = simulation2.getAnimals();
@@ -52,7 +52,7 @@ public class SimulationTest {
         assertTrue(animals2.get(0).isAt(new Vector2d(4, 3)));
 
         // simulation3 is for empty list
-        Simulation simulation3 = new Simulation(directions, List.of());
+        Simulation simulation3 = new Simulation(directions, List.of(), worldMap);
         simulation3.run();
 
         List<Animal> animals3 = simulation3.getAnimals();
