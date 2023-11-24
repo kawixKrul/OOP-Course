@@ -1,19 +1,17 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
-public class GrassField implements WorldMap {
+public class GrassField extends AbstractWorldMap {
     final int grassCount;
-    final Map<Vector2d, Animal> animals = new HashMap<>();
-    final Map<Vector2d, Grass> grasses = new HashMap<>();
+    final private Map<Vector2d, Grass> grasses = new HashMap<>();
 
     public GrassField(int grassCount) {
+        super((int)Math.sqrt(grassCount*10), (int)Math.sqrt(grassCount*10));
         this.grassCount = grassCount;
-        int width = (int)Math.sqrt(grassCount*10);
-        int height = (int)Math.sqrt(grassCount*10);
         RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(width, height, grassCount);
         for(Vector2d grassPosition : randomPositionGenerator) {
             grasses.put(grassPosition, new Grass(grassPosition));
@@ -28,19 +26,12 @@ public class GrassField implements WorldMap {
 
     @Override
     public boolean place(Animal animal) {
-        Vector2d position = animal.getPosition();
-        if (!isOccupied(position) || !(objectAt(position) instanceof Animal)) {
-            animals.put(position, animal);
-            return true;
-        }
-        return false;
+        return super.place(animal);
     }
 
     @Override
     public void move(Animal animal, MoveDirection direction) {
-        animals.remove(animal.getPosition());
-        animal.move(direction, this);
-        place(animal);
+        super.move(animal, direction);
     }
 
     @Override
@@ -50,19 +41,17 @@ public class GrassField implements WorldMap {
 
     @Override
     public WorldElement objectAt(Vector2d position) {
-        Animal animal = animals.get(position);
-        if (animal != null) {
-            return animal;
-        }
-        return grasses.get(position);
+        return super.objectAt(position) != null ? super.objectAt(position) : grasses.get(position);
+    }
+
+    @Override
+    public List<WorldElement> getElements() {
+        return Stream.concat(super.getElements().stream(), grasses.values().stream())
+                .toList();
     }
 
     @Override
     public String toString() {
-        return new MapVisualizer(this)
-                .draw(
-                        new Vector2d(0, 0),
-                        new Vector2d((int)Math.sqrt(grassCount*10), (int)Math.sqrt(grassCount*10))
-                );
+        return super.toString();
     }
 }
