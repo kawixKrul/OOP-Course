@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiPredicate;
 
-@SuppressWarnings("unchecked")
-public class RectangularMap<T extends Vector2d, P extends Animal> implements WorldMap<T, P> {
+public class RectangularMap implements WorldMap{
     private final int width;
     private final int height;
     private final Map<Vector2d, Animal> animals = new HashMap<>();

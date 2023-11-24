@@ -18,7 +18,7 @@ public class SimulationTest {
                 new Vector2d(0, 0)
         );
 
-        WorldMap<Vector2d, Animal> worldMap = new RectangularMap(100, 100);
+        WorldMap worldMap = new RectangularMap(100, 100);
 
         String[] directionsStrings = {"FORWARD", "BACKWARD", "RIGHT", "LEFT"};
 

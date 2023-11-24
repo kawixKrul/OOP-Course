@@ -1,8 +1,6 @@
 package agh.ics.oop.model;
 
-import java.util.function.BiPredicate;
-
-public class Animal {
+public class Animal implements WorldElement {
     private MapDirection orientation;
     private Vector2d position;
 
@@ -52,6 +50,7 @@ public class Animal {
         return orientation;
     }
 
+    @Override
     public Vector2d getPosition() {
         return position;
     }
