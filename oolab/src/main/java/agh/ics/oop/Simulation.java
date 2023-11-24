@@ -7,9 +7,9 @@ import java.util.List;
 public class Simulation {
     private final List<MoveDirection> directionList;
     private final List<Animal> animalList;
-    private final WorldMap<Vector2d, Animal> worldMap;
+    private final WorldMap worldMap;
 
-    public Simulation(List<MoveDirection> directionList, List<Vector2d> positions, WorldMap<Vector2d, Animal> worldMap) {
+    public Simulation(List<MoveDirection> directionList, List<Vector2d> positions, WorldMap worldMap) {
         this.directionList = directionList;
         this.animalList = positions.stream()
                 .map(Animal::new)
