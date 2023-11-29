@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +27,8 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
-        return super.place(animal);
+    public void place(Animal animal) throws PositionAlreadyOccupiedException {
+        super.place(animal);
     }
 
     @Override
@@ -48,10 +50,5 @@ public class GrassField extends AbstractWorldMap {
     public List<WorldElement> getElements() {
         return Stream.concat(super.getElements().stream(), grasses.values().stream())
                 .toList();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

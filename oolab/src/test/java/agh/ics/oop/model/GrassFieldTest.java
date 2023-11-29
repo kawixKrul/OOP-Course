@@ -1,13 +1,12 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class GrassFieldTest {
     @Test
@@ -31,10 +30,15 @@ public class GrassFieldTest {
         Animal west = new Animal(new Vector2d(0,4));
 
         // check if animals can be placed on the map and are placed correctly
-        assertTrue(worldMap.place(north));
-        assertTrue(worldMap.place(south));
-        assertTrue(worldMap.place(east));
-        assertTrue(worldMap.place(west));
+        try {
+            worldMap.place(north);
+            worldMap.place(south);
+            worldMap.place(east);
+            worldMap.place(west);
+        } catch (Exception e) {
+            fail("Exception thrown");
+        }
+
         assertTrue(worldMap.isOccupied(new Vector2d(4,9)));
         assertTrue(worldMap.isOccupied(new Vector2d(4,0)));
         assertTrue(worldMap.isOccupied(new Vector2d(9,4)));
@@ -50,10 +54,18 @@ public class GrassFieldTest {
         Animal east2 = new Animal(new Vector2d(9,4));
         Animal west2 = new Animal(new Vector2d(0,4));
 
-        assertFalse(worldMap.place(north2));
-        assertFalse(worldMap.place(south2));
-        assertFalse(worldMap.place(east2));
-        assertFalse(worldMap.place(west2));
+        assertThrows(PositionAlreadyOccupiedException.class, () -> worldMap.place(north2));
+        assertThrows(PositionAlreadyOccupiedException.class, () -> worldMap.place(south2));
+        assertThrows(PositionAlreadyOccupiedException.class, () -> worldMap.place(east2));
+        assertThrows(PositionAlreadyOccupiedException.class, () -> worldMap.place(west2));
+//        try {
+//            worldMap.place(north2);
+//            worldMap.place(south2);
+//            worldMap.place(east2);
+//            worldMap.place(west2);
+//        } catch (Exception e) {
+//            fail("Exception thrown");
+//        }
 
         // check boundaries of the map
         // boundaries for this map are nonexistent

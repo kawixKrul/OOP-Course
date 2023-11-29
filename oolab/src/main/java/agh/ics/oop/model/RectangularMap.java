@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
+
 import java.util.function.BiPredicate;
 
 public class RectangularMap extends AbstractWorldMap{
@@ -16,8 +18,8 @@ public class RectangularMap extends AbstractWorldMap{
     }
 
     @Override
-    public boolean place(Animal animal) {
-        return super.place(animal);
+    public void place(Animal animal) throws PositionAlreadyOccupiedException {
+        super.place(animal);
     }
 
     @Override
@@ -33,10 +35,5 @@ public class RectangularMap extends AbstractWorldMap{
     @Override
     public WorldElement objectAt(Vector2d position) {
         return super.objectAt(position);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

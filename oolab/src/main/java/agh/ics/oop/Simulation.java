@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 
 import java.util.List;
 
@@ -15,7 +16,14 @@ public class Simulation {
                 .map(Animal::new)
                 .toList();
         this.worldMap = worldMap;
-        animalList.forEach(worldMap::place);
+        animalList.forEach(animal -> {
+            try {
+                worldMap.place(animal);
+            } catch (PositionAlreadyOccupiedException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     public void run() {
@@ -25,10 +33,8 @@ public class Simulation {
         }
         int index = 0;
         for (MoveDirection direction: directionList) {
-            Animal currentAnimal = animalList.get(index%size);
+            Animal currentAnimal = animalList.get(index++%size);
             worldMap.move(currentAnimal, direction);
-            System.out.println(worldMap);
-            index++;
         }
     }
 
