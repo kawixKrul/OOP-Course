@@ -9,4 +9,8 @@ public class ConsoleMapDisplay implements MapChangeListener{
         System.out.println(worldMap);
         System.out.println("Number of changes: " + ++changesCounter);
     }
+
+    public int getChangesCounter() {
+        return changesCounter;
+    }
 }

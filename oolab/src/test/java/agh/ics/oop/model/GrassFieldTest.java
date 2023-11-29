@@ -91,5 +91,9 @@ public class GrassFieldTest {
         // there is no reliable way to test the grass distribution
         // and what cells of the map are occupied because
         // the grass is generated randomly
+
+        // check boundaries of the map
+        assertEquals(new Vector2d(0,0), worldMap.getCurrentBounds().lowerLeft());
+        assertEquals(new Vector2d(10,10), worldMap.getCurrentBounds().upperRight());
     }
 }

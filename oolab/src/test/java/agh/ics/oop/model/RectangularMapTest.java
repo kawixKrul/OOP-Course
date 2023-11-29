@@ -99,5 +99,9 @@ public class RectangularMapTest {
         assertEquals(new Vector2d(7,4), south.getPosition());
         assertFalse(worldMap.isOccupied(new Vector2d(4,0)));
         assertFalse(worldMap.isOccupied(new Vector2d(4,1)));
+
+        // check boundaries of the map
+        assertEquals(new Vector2d(0,0), worldMap.getCurrentBounds().lowerLeft());
+        assertEquals(new Vector2d(9,9), worldMap.getCurrentBounds().upperRight());
     }
 }
