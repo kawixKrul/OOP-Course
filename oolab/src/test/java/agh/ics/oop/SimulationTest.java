@@ -18,7 +18,7 @@ public class SimulationTest {
                 new Vector2d(0, 0)
         );
 
-        WorldMap worldMap = new RectangularMap(100, 100);
+        WorldMap worldMap = new RectangularMap(4, 4);
 
         String[] directionsStrings = {"FORWARD", "BACKWARD", "RIGHT", "LEFT"};
 
@@ -49,7 +49,7 @@ public class SimulationTest {
 
         List<Animal> animals2 = simulation2.getAnimals();
 
-        assertTrue(animals2.get(0).isAt(new Vector2d(4, 3)));
+        assertTrue(animals2.get(0).isAt(new Vector2d(4, 2)));
 
         // simulation3 is for empty list
         Simulation simulation3 = new Simulation(directions, List.of(), worldMap);

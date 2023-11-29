@@ -2,17 +2,29 @@ package agh.ics.oop.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class RectangularMapTest {
+public class GrassFieldTest {
     @Test
-    public void rectangularMapTest() {
-        // basically the same as GrassFieldTest
+    public void testGrassField() {
+        // basically the same as RectangularMapTest
         // as both classes inherit most of the methods from AbstractWorldMap
 
-        WorldMap worldMap = new RectangularMap(9,9);
+        WorldMap worldMap = new GrassField(10);
+        Set<Grass> grasses = worldMap.getElements()
+                .stream()
+                .filter(x -> x instanceof Grass)
+                .map(x -> (Grass) x)
+                .collect(Collectors.toSet());
+
+        // test for generating proper distinct grasses
+        assertEquals(10, grasses.size());
+
         Animal north = new Animal(new Vector2d(4,9));
         Animal south = new Animal(new Vector2d(4,0));
         Animal east = new Animal(new Vector2d(9,4));
@@ -44,36 +56,14 @@ public class RectangularMapTest {
         assertFalse(worldMap.place(west2));
 
         // check boundaries of the map
-        assertFalse(worldMap.canMoveTo(new Vector2d(-1,0)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(0,-1)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(10,0)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(0,10)));
+        // boundaries for this map are nonexistent
+        assertTrue(worldMap.canMoveTo(new Vector2d(-1,0)));
+        assertTrue(worldMap.canMoveTo(new Vector2d(0,-1)));
+        assertTrue(worldMap.canMoveTo(new Vector2d(10,0)));
+        assertTrue(worldMap.canMoveTo(new Vector2d(0,10)));
 
-        // check if can move to occupied position
-        assertFalse(worldMap.canMoveTo(new Vector2d(4,9)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(4,0)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(9,4)));
-        assertFalse(worldMap.canMoveTo(new Vector2d(0,4)));
 
-        // rotate animals
-        south.move(MoveDirection.RIGHT, worldMap);
-        south.move(MoveDirection.RIGHT, worldMap);
-        east.move(MoveDirection.RIGHT, worldMap);
-        west.move(MoveDirection.LEFT, worldMap);
-
-        // move animals (they should stay in the same position)
-        south.move(MoveDirection.FORWARD, worldMap);
-        east.move(MoveDirection.FORWARD, worldMap);
-        west.move(MoveDirection.FORWARD, worldMap);
-        north.move(MoveDirection.FORWARD, worldMap);
-
-        // check if animals are on correct positions
-        assertEquals(new Vector2d(4,0), south.getPosition());
-        assertEquals(new Vector2d(9,4), east.getPosition());
-        assertEquals(new Vector2d(0,4), west.getPosition());
-        assertEquals(new Vector2d(4,9), north.getPosition());
-
-        // move one animal in more complicated way
+        // move one animal in more complicated way the grass should not block its movement
         worldMap.move(south, MoveDirection.BACKWARD);
         worldMap.move(south, MoveDirection.BACKWARD);
         worldMap.move(south, MoveDirection.LEFT);
@@ -84,8 +74,10 @@ public class RectangularMapTest {
         worldMap.move(south, MoveDirection.FORWARD);
         worldMap.move(south, MoveDirection.FORWARD);
 
-        assertEquals(new Vector2d(7,4), south.getPosition());
-        assertFalse(worldMap.isOccupied(new Vector2d(4,0)));
-        assertFalse(worldMap.isOccupied(new Vector2d(4,1)));
+        assertEquals(new Vector2d(1,-4), south.getPosition());
+
+        // there is no reliable way to test the grass distribution
+        // and what cells of the map are occupied because
+        // the grass is generated randomly
     }
 }

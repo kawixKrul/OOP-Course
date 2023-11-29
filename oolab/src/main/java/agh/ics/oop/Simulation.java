@@ -11,7 +11,7 @@ public class Simulation {
 
     public Simulation(List<MoveDirection> directionList, List<Vector2d> positions, WorldMap worldMap) {
         this.directionList = directionList;
-        this.animalList = positions.stream()
+        this.animalList =  positions.stream()
                 .map(Animal::new)
                 .toList();
         this.worldMap = worldMap;
