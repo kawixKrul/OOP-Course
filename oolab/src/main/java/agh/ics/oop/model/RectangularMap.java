@@ -3,6 +3,9 @@ package agh.ics.oop.model;
 import java.util.function.BiPredicate;
 
 public class RectangularMap extends AbstractWorldMap{
+    private final int width;
+    private final int height;
+    private final Map<Vector2d, Animal> animals = new HashMap<>();
 
     public RectangularMap(int width, int height) {
         super(width, height);
