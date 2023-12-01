@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface WorldMap extends MoveValidator {
      * Place a animal on the map.
      *
      * @param animal The animal to place on the map.
-     * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
+     * @throws PositionAlreadyOccupiedException if the map is already occupied.
      */
-    boolean place(Animal animal);
+    void place(Animal animal) throws PositionAlreadyOccupiedException;
 
     /**
      * Moves an animal (if it is present on the map) according to specified direction.
@@ -51,4 +52,10 @@ public interface WorldMap extends MoveValidator {
      * @return List of all animals on the map.
      */
     List<WorldElement> getElements();
+
+    /**
+     * Return current map boundries.
+     * @return Boundary object that specifies map boundries.
+     */
+    Boundary getCurrentBounds();
 }
