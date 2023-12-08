@@ -3,10 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.util.MapVisualizer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class AbstractWorldMap implements WorldMap{
@@ -14,11 +11,13 @@ public class AbstractWorldMap implements WorldMap{
     final int width;
     final int height;
     final List<MapChangeListener> observers;
+    final UUID id;
 
     public AbstractWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
         this.observers = new ArrayList<>();
+        this.id = UUID.randomUUID();
     }
 
     @Override
@@ -76,6 +75,11 @@ public class AbstractWorldMap implements WorldMap{
     @Override
     public Boundary getCurrentBounds() {
         return new Boundary(new Vector2d(0, 0), new Vector2d(width, height));
+    }
+
+    @Override
+    public final UUID getId() {
+        return id;
     }
 
     @Override

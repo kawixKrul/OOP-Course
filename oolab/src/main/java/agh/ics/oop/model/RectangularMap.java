@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 
+import java.util.UUID;
 import java.util.function.BiPredicate;
 
 public class RectangularMap extends AbstractWorldMap{
