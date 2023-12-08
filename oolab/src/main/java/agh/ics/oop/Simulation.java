@@ -5,7 +5,7 @@ import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
     private final List<MoveDirection> directionList;
     private final List<Animal> animalList;
     private final WorldMap worldMap;
@@ -26,6 +26,7 @@ public class Simulation {
 
     }
 
+    @Override
     public void run() {
         int size = animalList.size();
         if (size == 0) {

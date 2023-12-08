@@ -5,6 +5,7 @@ import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class GrassField extends AbstractWorldMap {
