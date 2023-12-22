@@ -47,11 +47,9 @@ public class SimulationEngine {
     }
 
     public void runAsyncInThreadPool() {
-        executorService.execute(() -> {
-            for (Simulation simulation: simulations) {
-                simulation.run();
-            }
-        });
+        for (Simulation simulation: simulations) {
+            executorService.execute(simulation);
+        }
         executorService.shutdown();
     }
 }
